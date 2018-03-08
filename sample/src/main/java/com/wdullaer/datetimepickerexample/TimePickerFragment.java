@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,22 +73,23 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
                     tpd = TimePickerDialog.newInstance(
                             TimePickerFragment.this,
                             now.get(Calendar.HOUR_OF_DAY),
-                            now.get(Calendar.MINUTE),
-                            mode24Hours.isChecked()
+                            0,
+                            DateFormat.is24HourFormat(getActivity())
                     );
                 } else {
                     tpd.initialize(
                             TimePickerFragment.this,
                             now.get(Calendar.HOUR_OF_DAY),
-                            now.get(Calendar.MINUTE),
-                            now.get(Calendar.SECOND),
-                            mode24Hours.isChecked()
+                            0,
+                            0,
+                            DateFormat.is24HourFormat(getActivity())
                     );
                 }
                 tpd.setThemeDark(modeDarkTime.isChecked());
                 tpd.vibrate(vibrateTime.isChecked());
                 tpd.dismissOnPause(dismissTime.isChecked());
                 tpd.enableSeconds(enableSeconds.isChecked());
+                tpd.enableMinutesPicker(false);
                 tpd.setVersion(showVersion2.isChecked() ? TimePickerDialog.Version.VERSION_2 : TimePickerDialog.Version.VERSION_1);
                 if (modeCustomAccentTime.isChecked()) {
                     tpd.setAccentColor(Color.parseColor("#9C27B0"));
